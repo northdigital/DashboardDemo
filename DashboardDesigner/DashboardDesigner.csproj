@@ -124,6 +124,9 @@
     <Compile Include="DashboardDesignerForm.Designer.cs">
       <DependentUpon>DashboardDesignerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Data.cs" />
+    <Compile Include="LimitDBSchemaProvider.cs" />
+    <Compile Include="ManualDBSchemaProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DashboardDesignerForm.resx">

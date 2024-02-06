@@ -1,6 +1,8 @@
 ﻿using DevExpress.DashboardCommon;
 using DevExpress.DashboardWin;
+using DevExpress.DataAccess;
 using DevExpress.DataAccess.ConnectionParameters;
+using System;
 using System.Windows.Forms;
 
 namespace DashboardDesigner
@@ -11,20 +13,48 @@ namespace DashboardDesigner
     {
       InitializeComponent();
 
-      DataConnectionParametersBase connParameters = new OracleConnectionParameters
+      #region Load from database
+
+      //DataConnectionParametersBase connParameters = new OracleConnectionParameters
+      //{
+      //  ProviderType = OracleProviderType.ODPManaged,
+      //  ServerName = "godfather/casinodev",
+      //  UserName = "casinocrm",
+      //  Password = "sporades"
+      //};
+
+      //DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source", connParameters);
+      //dashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
+
+      // filter db schema
+      // dashboardDesigner.CustomDBSchemaProviderEx = new LimitDBSchemaProvider();
+
+      #endregion
+
+      #region Load from object
+
+      dashboardDesigner.DataSourceOptions.ObjectDataSourceLoadingBehavior = DocumentLoadingBehavior.LoadAsIs;
+
+      DashboardObjectDataSource dataSource1 = new DashboardObjectDataSource("Obj Data Source1");
+      dashboardDesigner.DataLoading += (s, ev) => 
       {
-        ProviderType = OracleProviderType.ODPManaged,
-        ServerName = "godfather/casinodev",
-        UserName = "casinocrm",
-        Password = "sporades"
+        if (ev.DataSourceName == "Obj Data Source1")
+          ev.Data = Data.Get1();
       };
+      dashboardDesigner.Dashboard.DataSources.Add(dataSource1);
 
-      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source", connParameters);
+      DashboardObjectDataSource dataSource2 = new DashboardObjectDataSource("Obj Data Source2");
+      dashboardDesigner.DataLoading += (s, ev) =>
+      {
+        if (ev.DataSourceName == "Obj Data Source2")
+          ev.Data = Data.Get2();
+      };
+      dashboardDesigner.Dashboard.DataSources.Add(dataSource2);
 
-      dashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
+      #endregion
     }
 
-    private void dashboardDesigner_DashboardCreating(object sender, DashboardCreatingEventArgs e)
+    private void DashboardDesigner_DashboardCreating(object sender, DashboardCreatingEventArgs e)
     {
       DataConnectionParametersBase connParameters = new OracleConnectionParameters
       {
@@ -39,9 +69,21 @@ namespace DashboardDesigner
       e.Dashboard.DataSources.Add(sqlDataSource);
     }
 
-    private void bbiMySave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    private void BbbiMySave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
-      dashboardDesigner.Dashboard.SaveToXml("test1.xml");      
+      dashboardDesigner.Dashboard.SaveToXml("test1.xml");
+    }
+
+    private void DashboardDesigner_CustomizeDashboardTitle(object sender, CustomizeDashboardTitleEventArgs e)
+    {
+      DashboardToolbarItem titleButton = new DashboardToolbarItem("Load Data",
+        new Action<DashboardToolbarItemClickEventArgs>((args) =>
+        {
+          dashboardDesigner.ReloadData();
+        }));
+
+      titleButton.Caption = "Reload Data";
+      e.Items.Add(titleButton);
     }
   }
 }
