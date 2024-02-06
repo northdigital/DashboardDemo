@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="el-GR">
+  <Title Text="CRM Dashboard" />
+  <DataSources>
+    <SqlDataSource Name="SQL Data Source 1" ComponentName="dashboardSqlDataSource1">
+      <Connection Name="godfather/casinodev_Connection" ProviderKey="Oracle">
+        <Parameters>
+          <Parameter Name="server" Value="godfather/casinodev" />
+          <Parameter Name="database" Value="" />
+          <Parameter Name="read only" Value="1" />
+          <Parameter Name="generateConnectionHelper" Value="false" />
+          <Parameter Name="OracleProviderType" Value="ODPManaged" />
+          <Parameter Name="userid" Value="" />
+          <Parameter Name="password" Value="" />
+        </Parameters>
+      </Connection>
+      <Query Type="SelectQuery" Name="ACTION_TARGET">
+        <Tables>
+          <Table Name="ACTION_TARGET" X="100" Y="20" Width="125" Height="424" />
+        </Tables>
+        <Columns>
+          <Column Table="ACTION_TARGET" Name="ID" />
+          <Column Table="ACTION_TARGET" Name="ACTION_ID" />
+          <Column Table="ACTION_TARGET" Name="VIRTUAL_PLAYER_ID" />
+          <Column Table="ACTION_TARGET" Name="STATE" />
+          <Column Table="ACTION_TARGET" Name="APPROVED_BY" />
+          <Column Table="ACTION_TARGET" Name="MODIFIED_AT" />
+          <Column Table="ACTION_TARGET" Name="APPROVE_TYPE" />
+          <Column Table="ACTION_TARGET" Name="REMINDER_NOTES" />
+          <Column Table="ACTION_TARGET" Name="SHARING_WITH" />
+          <Column Table="ACTION_TARGET" Name="VISIT_NO" />
+          <Column Table="ACTION_TARGET" Name="IS_SHARING_MASTER" />
+        </Columns>
+      </Query>
+      <Query Type="SelectQuery" Name="ACTION">
+        <Tables>
+          <Table Name="ACTION" X="30" Y="30" Width="125" Height="344" />
+          <Table Name="ACTION_TARGET" X="350" Y="30" Width="125" Height="424" />
+          <Table Name="ACTION_TYPE" X="200" Y="190" Width="125" Height="164" />
+          <Table Name="VIRTUAL_PLAYER" X="505" Y="30" Width="125" Height="144" />
+          <Relation Type="Inner" Parent="ACTION" Nested="ACTION_TARGET">
+            <KeyColumn Parent="ID" Nested="ACTION_ID" />
+          </Relation>
+          <Relation Type="Inner" Parent="ACTION" Nested="ACTION_TYPE">
+            <KeyColumn Parent="ACTION_TYPE_ID" Nested="ID" />
+          </Relation>
+          <Relation Type="Inner" Parent="ACTION_TARGET" Nested="VIRTUAL_PLAYER">
+            <KeyColumn Parent="VIRTUAL_PLAYER_ID" Nested="ID" />
+          </Relation>
+        </Tables>
+        <Columns>
+          <Column Table="ACTION" Name="ID" />
+          <Column Table="ACTION_TYPE" Name="DESCR" Alias="action_type_descr" />
+          <Column Table="VIRTUAL_PLAYER" Name="PLAYER_ID" />
+          <Column Table="ACTION_TARGET" Name="STATE" />
+          <Column Table="ACTION_TARGET" Name="VISIT_NO" />
+          <Column Table="ACTION_TARGET" Name="USER_ID" />
+        </Columns>
+      </Query>
+      <ResultSchema>
+        <DataSet Name="SQL Data Source 1">
+          <View Name="ACTION_TARGET">
+            <Field Name="ID" Type="Decimal" />
+            <Field Name="ACTION_ID" Type="Decimal" />
+            <Field Name="VIRTUAL_PLAYER_ID" Type="Decimal" />
+            <Field Name="STATE" Type="String" />
+            <Field Name="APPROVED_BY" Type="Decimal" />
+            <Field Name="MODIFIED_AT" Type="DateTime" />
+            <Field Name="APPROVE_TYPE" Type="String" />
+            <Field Name="REMINDER_NOTES" Type="String" />
+            <Field Name="SHARING_WITH" Type="Decimal" />
+            <Field Name="VISIT_NO" Type="Decimal" />
+            <Field Name="IS_SHARING_MASTER" Type="String" />
+          </View>
+          <View Name="ACTION">
+            <Field Name="ID" Type="Decimal" />
+            <Field Name="action_type_descr" Type="String" />
+            <Field Name="PLAYER_ID" Type="Int64" />
+            <Field Name="STATE" Type="String" />
+            <Field Name="VISIT_NO" Type="Decimal" />
+            <Field Name="USER_ID" Type="Decimal" />
+          </View>
+        </DataSet>
+      </ResultSchema>
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <Grid ComponentName="gridDashboardItem1" Name="Grid 1" DataSource="dashboardSqlDataSource1" DataMember="ACTION_TARGET">
+      <InteractivityOptions MasterFilterMode="Single" />
+      <DataItems>
+        <Dimension DataMember="ACTION_ID" DefaultId="DataItem0" />
+        <Dimension DataMember="ID" DefaultId="DataItem1" />
+        <Dimension DataMember="STATE" DefaultId="DataItem2" />
+        <Dimension DataMember="MODIFIED_AT" DefaultId="DataItem3" />
+      </DataItems>
+      <GridColumns>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem0" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem1" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem2" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem3" />
+        </GridDimensionColumn>
+      </GridColumns>
+      <GridOptions />
+      <ColumnFilterOptions />
+    </Grid>
+    <Pivot ComponentName="pivotDashboardItem1" Name="Pivot 1" DataSource="dashboardSqlDataSource1" DataMember="ACTION_TARGET">
+      <DataItems>
+        <Dimension DataMember="ACTION_ID" DefaultId="DataItem0" />
+        <Dimension DataMember="VISIT_NO" DefaultId="DataItem1" />
+        <Dimension DataMember="STATE" DefaultId="DataItem2" />
+        <Measure DataMember="VISIT_NO" DefaultId="DataItem3" />
+      </DataItems>
+      <Columns>
+        <Column DefaultId="DataItem0" />
+        <Column DefaultId="DataItem1" />
+      </Columns>
+      <Rows>
+        <Row DefaultId="DataItem2" />
+      </Rows>
+      <Values>
+        <Value DefaultId="DataItem3" />
+      </Values>
+    </Pivot>
+    <Pie ComponentName="pieDashboardItem1" Name="Pies 1" DataSource="dashboardSqlDataSource1" DataMember="ACTION_TARGET" />
+  </Items>
+  <LayoutTree>
+    <LayoutGroup>
+      <LayoutGroup Orientation="Vertical" Weight="0.5">
+        <LayoutItem DashboardItem="gridDashboardItem1" Weight="0.5" />
+        <LayoutItem DashboardItem="pieDashboardItem1" Weight="0.5" />
+      </LayoutGroup>
+      <LayoutItem DashboardItem="pivotDashboardItem1" Weight="0.5" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>
