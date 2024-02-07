@@ -34,5 +34,12 @@ namespace DashboardViewer
         dashboardViewer.Dashboard.LoadFromXml(openDashboardDialog.FileName);
       }
     }
+
+    private void BtnReloadData_Click(object sender, System.EventArgs e)
+    {
+      dashboardViewer.ExportToExcel("aaa.xlsx");
+      if (dashboardViewer.Dashboard != null)
+        dashboardViewer.ReloadData();
+    }
   }
 }

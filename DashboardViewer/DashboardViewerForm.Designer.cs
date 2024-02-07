@@ -34,6 +34,7 @@ namespace DashboardViewer
       this.openDashboardDialog = new System.Windows.Forms.OpenFileDialog();
       this.panelControl = new DevExpress.XtraEditors.PanelControl();
       this.btnOpenDashboard = new DevExpress.XtraEditors.SimpleButton();
+      this.btnReloadData = new DevExpress.XtraEditors.SimpleButton();
       ((System.ComponentModel.ISupportInitialize)(this.dashboardViewer)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.panelControl)).BeginInit();
       this.panelControl.SuspendLayout();
@@ -58,6 +59,7 @@ namespace DashboardViewer
       // 
       // panelControl
       // 
+      this.panelControl.Controls.Add(this.btnReloadData);
       this.panelControl.Controls.Add(this.btnOpenDashboard);
       this.panelControl.Dock = System.Windows.Forms.DockStyle.Top;
       this.panelControl.Location = new System.Drawing.Point(0, 0);
@@ -75,6 +77,17 @@ namespace DashboardViewer
       this.btnOpenDashboard.TabIndex = 0;
       this.btnOpenDashboard.Text = "Open Dashboard";
       this.btnOpenDashboard.Click += new System.EventHandler(this.BtnOpenDashboard_Click);
+      // 
+      // btnReloadData
+      // 
+      this.btnReloadData.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+      this.btnReloadData.Appearance.Options.UseFont = true;
+      this.btnReloadData.Location = new System.Drawing.Point(148, 6);
+      this.btnReloadData.Name = "btnReloadData";
+      this.btnReloadData.Size = new System.Drawing.Size(130, 30);
+      this.btnReloadData.TabIndex = 1;
+      this.btnReloadData.Text = "Reload Data";
+      this.btnReloadData.Click += new System.EventHandler(this.BtnReloadData_Click);
       // 
       // DashboardViewerForm
       // 
@@ -98,6 +111,7 @@ namespace DashboardViewer
     private System.Windows.Forms.OpenFileDialog openDashboardDialog;
     private DevExpress.XtraEditors.PanelControl panelControl;
     private DevExpress.XtraEditors.SimpleButton btnOpenDashboard;
+    private DevExpress.XtraEditors.SimpleButton btnReloadData;
   }
 }
 
