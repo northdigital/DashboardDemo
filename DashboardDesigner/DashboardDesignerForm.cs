@@ -80,12 +80,10 @@ namespace DashboardDesigner
 
     private void BbiOpenDashboard_ItemClick(object sender, ItemClickEventArgs e)
     {
-      ///*
       if (openDashboardDialog.ShowDialog() == DialogResult.OK)
       {
         DashboardDesigner.Dashboard.LoadFromXml(openDashboardDialog.FileName);
-      }
-      //*/
+      }     
     }
 
     private void BbiSaveDashboard_ItemClick(object sender, ItemClickEventArgs e)

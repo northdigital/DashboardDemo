@@ -1,4 +1,5 @@
 ﻿using DevExpress.DashboardCommon;
+using DevExpress.DashboardWin;
 using DevExpress.DataAccess.ConnectionParameters;
 using System.Windows.Forms;
 
@@ -9,20 +10,29 @@ namespace DashboardViewer
     public DashboardViewerForm()
     {
       InitializeComponent();
+    }
 
-      DataConnectionParametersBase connParameters = new OracleConnectionParameters
+    private void DashboardViewer_ConfigureDataConnection(object sender, DashboardConfigureDataConnectionEventArgs e)
+    {
+      if (e.DataSourceName == "CRM Data Source")
       {
-        ProviderType = OracleProviderType.ODPManaged,
-        ServerName = "godfather/casinodev",
-        UserName = "casinocrm",
-        Password = "sporades"
-      };
+        e.ConnectionParameters = new OracleConnectionParameters
+        {
+          ProviderType = OracleProviderType.ODPManaged,
+          ServerName = "godfather/casinodev",
+          UserName = "casinocrm",
+          Password = "sporades"
+        };
+      }
+    }
 
-      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source", connParameters);
-
-      dashboardViewer.Dashboard.DataSources.Add(sqlDataSource);
-      dashboardViewer.Dashboard.LoadFromXml("");
-      
+    private void BtnOpenDashboard_Click(object sender, System.EventArgs e)
+    {
+      if (openDashboardDialog.ShowDialog() == DialogResult.OK)
+      {
+        dashboardViewer.Dashboard = new Dashboard();        
+        dashboardViewer.Dashboard.LoadFromXml(openDashboardDialog.FileName);
+      }
     }
   }
 }
