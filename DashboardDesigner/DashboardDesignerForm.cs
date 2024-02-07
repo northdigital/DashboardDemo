@@ -30,17 +30,9 @@ namespace DashboardDesigner
       dashboardDesigner.Dashboard.DataSources.Add(dataSource2);
     }
 
-    private void LoadSQLData()
+    private void AddCRMDataSource()
     {
-      DataConnectionParametersBase connParameters = new OracleConnectionParameters
-      {
-        ProviderType = OracleProviderType.ODPManaged,
-        ServerName = "godfather/casinodev",
-        UserName = "casinocrm",
-        Password = "sporades"
-      };
-
-      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source", connParameters);
+      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source");
       dashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
     }
 
@@ -48,19 +40,34 @@ namespace DashboardDesigner
     {
       InitializeComponent();
 
-      LoadSQLData();
+      AddCRMDataSource();
     }
 
     private void DashboardDesigner_DashboardCreating(object sender, DashboardCreatingEventArgs e)
     {
-      LoadSQLData();      
-      //LoadObjectData();
-      //dashboardDesigner.CustomDBSchemaProviderEx = new LimitDBSchemaProvider();
+      //AddCRMDataSource();            
+    }
+
+    private void dashboardDesigner_ConfigureDataConnection(object sender, DashboardConfigureDataConnectionEventArgs e)
+    {
+      if (e.DataSourceName == "CRM Data Source")
+      {
+        e.ConnectionParameters = new OracleConnectionParameters
+        {
+          ProviderType = OracleProviderType.ODPManaged,
+          ServerName = "godfather/casinodev",
+          UserName = "casinocrm",
+          Password = "sporades"
+        };
+      }
     }
 
     private void BbbiMySave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
-      dashboardDesigner.Dashboard.SaveToXml(@"Data\test.xml");      
+      if (saveDashboardFileDialog.ShowDialog() == DialogResult.OK)
+      {
+        dashboardDesigner.Dashboard.SaveToXml(saveDashboardFileDialog.FileName);
+      }
     }
 
     private void DashboardDesigner_CustomizeDashboardTitle(object sender, CustomizeDashboardTitleEventArgs e)
