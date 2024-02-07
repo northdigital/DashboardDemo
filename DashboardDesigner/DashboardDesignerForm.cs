@@ -2,53 +2,69 @@
 using DevExpress.DashboardWin;
 using DevExpress.DataAccess;
 using DevExpress.DataAccess.ConnectionParameters;
+using DevExpress.XtraBars;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DashboardDesigner
 {
   public partial class DashboardDesignerForm : Form
   {
-    private void LoadObjectData()
+    private void AddObjDataSource()
     {
-      dashboardDesigner.DataSourceOptions.ObjectDataSourceLoadingBehavior = DocumentLoadingBehavior.LoadAsIs;
+      DashboardDesigner.DataSourceOptions.ObjectDataSourceLoadingBehavior = DocumentLoadingBehavior.LoadAsIs;
 
       DashboardObjectDataSource dataSource1 = new DashboardObjectDataSource("Obj Data Source1");
-      dashboardDesigner.DataLoading += (s, ev) =>
+      DashboardDesigner.DataLoading += (s, ev) =>
       {
         if (ev.DataSourceName == "Obj Data Source1")
           ev.Data = Data.Get1();
       };
-      dashboardDesigner.Dashboard.DataSources.Add(dataSource1);
+      DashboardDesigner.Dashboard.DataSources.Add(dataSource1);
 
       DashboardObjectDataSource dataSource2 = new DashboardObjectDataSource("Obj Data Source2");
-      dashboardDesigner.DataLoading += (s, ev) =>
+      DashboardDesigner.DataLoading += (s, ev) =>
       {
         if (ev.DataSourceName == "Obj Data Source2")
           ev.Data = Data.Get2();
       };
-      dashboardDesigner.Dashboard.DataSources.Add(dataSource2);
+      DashboardDesigner.Dashboard.DataSources.Add(dataSource2);
     }
 
     private void AddCRMDataSource()
     {
       DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source");
-      dashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
+      DashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
+    }
+
+    private void ConfigureRibbon()
+    {
+      List<BarItem> itemsToRemove = new List<BarItem>();
+      foreach (BarItem item in ribbonControl.Items.Cast<BarItem>())
+      {
+        if (item is DevExpress.DashboardWin.Bars.FileNewBarItem) itemsToRemove.Add(item);
+        if (item is DevExpress.DashboardWin.Bars.FileOpenBarItem) itemsToRemove.Add(item);
+        if (item is DevExpress.DashboardWin.Bars.FileSaveBarItem) itemsToRemove.Add(item);
+        if (item is DevExpress.DashboardWin.Bars.FileSaveAsBarItem) itemsToRemove.Add(item);
+      }
+      foreach (BarItem item in itemsToRemove)
+        ribbonControl.Items.Remove(item);
     }
 
     public DashboardDesignerForm()
     {
       InitializeComponent();
 
+      ConfigureRibbon();
+
       AddCRMDataSource();
     }
 
-    private void DashboardDesigner_DashboardCreating(object sender, DashboardCreatingEventArgs e)
-    {
-      //AddCRMDataSource();            
-    }
-
-    private void dashboardDesigner_ConfigureDataConnection(object sender, DashboardConfigureDataConnectionEventArgs e)
+    private void DashboardDesigner_ConfigureDataConnection(object sender, DashboardConfigureDataConnectionEventArgs e)
     {
       if (e.DataSourceName == "CRM Data Source")
       {
@@ -62,12 +78,32 @@ namespace DashboardDesigner
       }
     }
 
-    private void BbbiMySave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    private void BbiOpenDashboard_ItemClick(object sender, ItemClickEventArgs e)
     {
-      if (saveDashboardFileDialog.ShowDialog() == DialogResult.OK)
+      ///*
+      if (openDashboardDialog.ShowDialog() == DialogResult.OK)
       {
-        dashboardDesigner.Dashboard.SaveToXml(saveDashboardFileDialog.FileName);
+        DashboardDesigner.Dashboard.LoadFromXml(openDashboardDialog.FileName);
       }
+      //*/
+    }
+
+    private void BbiSaveDashboard_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      ///*
+      if (saveDashboardDialog.ShowDialog() == DialogResult.OK)
+      {
+        DashboardDesigner.Dashboard.SaveToXml(saveDashboardDialog.FileName);
+      }
+      //*/
+
+      /*
+      using (var memoryStream = new MemoryStream())
+      {
+        DashboardDesigner.Dashboard.SaveToXml(memoryStream);
+        var dashboardMeta = memoryStream.ToArray();
+      }
+      //*/
     }
 
     private void DashboardDesigner_CustomizeDashboardTitle(object sender, CustomizeDashboardTitleEventArgs e)
@@ -75,12 +111,12 @@ namespace DashboardDesigner
       DashboardToolbarItem titleButton = new DashboardToolbarItem("Load Data",
         new Action<DashboardToolbarItemClickEventArgs>(args =>
         {
-          dashboardDesigner.ReloadData();
+          DashboardDesigner.ReloadData();
         }))
       {
         Caption = "Reload Data"
       };
       e.Items.Add(titleButton);
-    }
+    }    
   }
 }
