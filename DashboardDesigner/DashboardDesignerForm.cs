@@ -88,22 +88,12 @@ namespace DashboardDesigner
       //*/
     }
 
-    private void BbiSaveDashboard_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    private void BbiSaveDashboard_ItemClick(object sender, ItemClickEventArgs e)
     {
-      ///*
       if (saveDashboardDialog.ShowDialog() == DialogResult.OK)
       {
         DashboardDesigner.Dashboard.SaveToXml(saveDashboardDialog.FileName);
-      }
-      //*/
-
-      /*
-      using (var memoryStream = new MemoryStream())
-      {
-        DashboardDesigner.Dashboard.SaveToXml(memoryStream);
-        var dashboardMeta = memoryStream.ToArray();
-      }
-      //*/
+      }      
     }
 
     private void DashboardDesigner_CustomizeDashboardTitle(object sender, CustomizeDashboardTitleEventArgs e)
