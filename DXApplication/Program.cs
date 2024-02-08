@@ -15,7 +15,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDevExpressControls();
 builder.Services.AddScoped<DashboardConfigurator>((IServiceProvider serviceProvider) => {
-    return DashboardUtils.CreateDashboardConfigurator(configuration, fileProvider);
+    return DashboardUtils.CreateDashboardConfigurator(fileProvider);
 });
 
 var app = builder.Build();

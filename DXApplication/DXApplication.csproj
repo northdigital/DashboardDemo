@@ -23,7 +23,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Data\Dashboards\dashboard1.xml" />
+    <None Remove="Data\Dashboards\ds1.xml" />
+    <None Remove="Data\Dashboards\ds2.xml" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="LibraryManagerRestore" Condition=" '$(Configuration)' == 'Debug' And !Exists('node_modules') ">
     <!-- Ensure Node.js is installed -->

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="el-GR">
+  <Title Text="CRM Demo Dashboard 1" />
+  <DataSources>
+    <SqlDataSource Name="CRM Data Source" ComponentName="dashboardSqlDataSource1">
+      <Connection Name="connection" ProviderKey="Oracle">
+        <Parameters>
+          <Parameter Name="server" Value="godfather/casinodev" />
+          <Parameter Name="database" Value="" />
+          <Parameter Name="read only" Value="1" />
+          <Parameter Name="generateConnectionHelper" Value="false" />
+          <Parameter Name="OracleProviderType" Value="ODPManaged" />          
+        </Parameters>
+      </Connection>
+      <Query Type="SelectQuery" Name="ACTION">
+        <Tables>
+          <Table Name="ACTION" X="30" Y="30" Width="125" Height="344" />
+          <Table Name="ACTION_TARGET" X="185" Y="30" Width="125" Height="424" />
+          <Table Name="CAMPAIGN_TARGET_DETAILS" X="340" Y="30" Width="125" Height="1804" />
+          <Table Name="AIRLINE" Alias="ARIVAL_AIRLINE" X="495" Y="30" Width="125" Height="124" />
+          <Table Name="AIRLINE" Alias="DEPARTURE_AIRLINE" X="650" Y="30" Width="125" Height="124" />
+          <Relation Type="LeftOuter" Parent="CAMPAIGN_TARGET_DETAILS" Nested="ARIVAL_AIRLINE">
+            <KeyColumn Parent="ARRIVAL_AIRLINE_ID" Nested="ID" />
+          </Relation>
+          <Relation Type="LeftOuter" Parent="CAMPAIGN_TARGET_DETAILS" Nested="DEPARTURE_AIRLINE">
+            <KeyColumn Parent="DEPARTURE_AIRLINE_ID" Nested="ID" />
+          </Relation>
+          <Relation Type="LeftOuter" Parent="ACTION" Nested="ACTION_TARGET">
+            <KeyColumn Parent="ID" Nested="ACTION_ID" />
+          </Relation>
+          <Relation Type="LeftOuter" Parent="ACTION_TARGET" Nested="CAMPAIGN_TARGET_DETAILS">
+            <KeyColumn Parent="ID" Nested="ACTION_TARGET_ID" />
+          </Relation>
+        </Tables>
+        <Columns>
+          <Column Table="ACTION" Name="ID" />
+          <Column Table="ACTION" Name="ACTION_TYPE_ID" />
+          <Column Table="ACTION" Name="DATE_START" />
+          <Column Table="ACTION" Name="DATE_END" />
+          <Column Table="ACTION" Name="NOTES" />
+          <Column Table="ACTION" Name="OWNER" />
+          <Column Table="ACTION" Name="BUDGET" />
+          <Column Table="ACTION" Name="ACTUAL" />
+          <Column Table="ACTION" Name="TITLE" />
+          <Column Table="ACTION" Name="IS_INACTIVE" />
+          <Column Table="ACTION" Name="LOCKED_BY" />
+          <Column Table="ACTION" Name="VENUE_ID" />
+          <Column Table="ACTION" Name="MIGRATION_ID" />
+          <Column Table="ACTION" Name="MODIFIED_AT" />
+          <Column Table="ACTION_TARGET" Name="ID" Alias="ACTION_TARGET_ID" />
+          <Column Table="ACTION_TARGET" Name="ACTION_ID" />
+          <Column Table="ACTION_TARGET" Name="VIRTUAL_PLAYER_ID" />
+          <Column Table="ACTION_TARGET" Name="STATE" />
+          <Column Table="ACTION_TARGET" Name="APPROVED_BY" />
+          <Column Table="ACTION_TARGET" Name="TRUSTED_APPROVED_BY" />
+          <Column Table="ACTION_TARGET" Name="MODIFIED_AT" Alias="ACTION_TARGET_MODIFIED_AT" />
+          <Column Table="ACTION_TARGET" Name="APPROVE_TYPE" />
+          <Column Table="ACTION_TARGET" Name="REMINDER" />
+          <Column Table="ACTION_TARGET" Name="REMINDER_NOTES" />
+          <Column Table="ACTION_TARGET" Name="SHARING_WITH" />
+          <Column Table="ACTION_TARGET" Name="VISIT_NO" />
+          <Column Table="ACTION_TARGET" Name="IS_SHARING_MASTER" />
+          <Column Table="ACTION_TARGET" Name="RECIPIENTS_PHONE" />
+          <Column Table="ACTION_TARGET" Name="RECIPIENTS_EMAIL" />
+          <Column Table="ACTION_TARGET" Name="ERROR_MESSAGE" />
+          <Column Table="ACTION_TARGET" Name="RESPONSIBLE" />
+          <Column Table="ACTION_TARGET" Name="USER_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ACTION_ID" Alias="CAMPAIGN_TARGET_DETAILS_ACTION_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ACTION_TARGET_ID" Alias="CAMPAIGN_TARGET_DETAILS_ACTION_TARGET_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="RESERVATION_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="JUNKET_OPERATOR_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="JUNKET_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FLIGHT_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_AGENCY_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_AIRLINE_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FLIGHT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FLIGHT_FROM" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FLIGHT_TO" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_DEPARTS" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_ARRIVES" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FLIGHT_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_AGENCY_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_AIRLINE_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FLIGHT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FLIGHT_FROM" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FLIGHT_TO" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_DEPARTS" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_ARRIVES" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="FLIGHT_CATEGORY_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="FLIGHT_FEE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="TRANSPORT_SERVICE_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="NUMBER_ADULTS" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="NUMBER_KIDS" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EARLY_CHECK_OUT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EXTENSION" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="PREFERENCES1_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="PREFERENCES2_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="PREFERENCES3_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ROOM_SERVICE_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ACTUAL_ROOM_NUMBER" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="VENUE_ID" Alias="CAMPAIGN_TARGET_DETAILS_VENUE_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="HOTEL_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="HOTEL_CATEGORY_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ROOM_TYPE_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="RESERVATION_FROM" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="RESERVATION_TO" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ALLOCATED_ROOM_COUNT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EXPENSE_GROUP" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EXPENSE_TYPE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="COST" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="NOTES" Alias="CAMPAIGN_TARGET_DETAILS_NOTES" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="BEDS_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="FEEDING_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_TICKET_NUMBER" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_RESERVATION_NO" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_TICKET_NUMBER" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_RESERVATION_NO" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="G1" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="G2" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="G3" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="G4" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ROOM_AVAILABILITY_PACK_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ROOM_AVAILABILITY_ID" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="RECOMMENDED_BY" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FLIGHT_FEE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FLIGHT_FEE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_TICKET_CLASS" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_TICKET_CLASS" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EXCHANGED_VALUE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="CALCULATED_CHECK_OUT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="JUNKET_GROUP" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="IS_TRANSFER" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DISCOUNT_PAST_RSV" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DISCOUNT_CASH_RSV" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="VISA_NUMBER" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="VISA_NUMBER_G1" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="VISA_NUMBER_G2" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="VISA_NUMBER_G3" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="VISA_NUMBER_G4" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ONE_WAY_FLIGHT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="CB1" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="CB2" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="PRICE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="MODIFIED_AT" Alias="CAMPAIGN_TARGET_DETAILS_MODIFIED_AT" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="FLIGHT_FEE_2" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FLIGHT_FEE_2" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FLIGHT_FEE_2" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="ARRIVAL_FF2_INVOICE_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DEPARTURE_FF2_INVOICE_DATE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="DAILY_EXPENSE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EXPENSE_GROUP_CODE" />
+          <Column Table="CAMPAIGN_TARGET_DETAILS" Name="EXPENSE_TYPE_CODE" />
+          <Column Table="ARIVAL_AIRLINE" Name="ID" Alias="AIRLINE_ID" />
+          <Column Table="ARIVAL_AIRLINE" Name="DESCR" />
+          <Column Table="ARIVAL_AIRLINE" Name="SHORT_DESCR" />
+          <Column Table="DEPARTURE_AIRLINE" Name="ID" Alias="DEPARTURE_AIRLINE_ID_1" />
+          <Column Table="DEPARTURE_AIRLINE" Name="DESCR" Alias="DEPARTURE_AIRLINE_DESCR" />
+          <Column Table="DEPARTURE_AIRLINE" Name="SHORT_DESCR" Alias="DEPARTURE_AIRLINE_SHORT_DESCR" />
+        </Columns>
+      </Query>
+      <Query Type="StoredProcQuery" Name="DYNAMIC_CUSTOMER_DETAILS">
+        <Parameter Name="A_FROM_DATE" Type="System.DateTime">552877920000000000</Parameter>
+        <Parameter Name="A_TO_DATE" Type="System.DateTime">552877920000000000</Parameter>
+        <Parameter Name="A_ID" Type="System.Decimal">X5kEAAAAAAAAAAAAAAAAAA==</Parameter>
+        <ProcName>"DYNAMIC_CUSTOMER_DETAILS"</ProcName>
+      </Query>
+      <ResultSchema>
+        <DataSet Name="CRM Data Source">
+          <View Name="ACTION">
+            <Field Name="ID" Type="Decimal" />
+            <Field Name="ACTION_TYPE_ID" Type="Decimal" />
+            <Field Name="DATE_START" Type="DateTime" />
+            <Field Name="DATE_END" Type="DateTime" />
+            <Field Name="NOTES" Type="String" />
+            <Field Name="OWNER" Type="Decimal" />
+            <Field Name="BUDGET" Type="Decimal" />
+            <Field Name="ACTUAL" Type="Decimal" />
+            <Field Name="TITLE" Type="String" />
+            <Field Name="IS_INACTIVE" Type="String" />
+            <Field Name="LOCKED_BY" Type="Decimal" />
+            <Field Name="VENUE_ID" Type="Decimal" />
+            <Field Name="MIGRATION_ID" Type="Decimal" />
+            <Field Name="MODIFIED_AT" Type="DateTime" />
+            <Field Name="ACTION_TARGET_ID" Type="Decimal" />
+            <Field Name="ACTION_ID" Type="Decimal" />
+            <Field Name="VIRTUAL_PLAYER_ID" Type="Decimal" />
+            <Field Name="STATE" Type="String" />
+            <Field Name="APPROVED_BY" Type="Decimal" />
+            <Field Name="TRUSTED_APPROVED_BY" Type="Decimal" />
+            <Field Name="ACTION_TARGET_MODIFIED_AT" Type="DateTime" />
+            <Field Name="APPROVE_TYPE" Type="String" />
+            <Field Name="REMINDER" Type="DateTime" />
+            <Field Name="REMINDER_NOTES" Type="String" />
+            <Field Name="SHARING_WITH" Type="Decimal" />
+            <Field Name="VISIT_NO" Type="Decimal" />
+            <Field Name="IS_SHARING_MASTER" Type="String" />
+            <Field Name="RECIPIENTS_PHONE" Type="String" />
+            <Field Name="RECIPIENTS_EMAIL" Type="String" />
+            <Field Name="ERROR_MESSAGE" Type="String" />
+            <Field Name="RESPONSIBLE" Type="Decimal" />
+            <Field Name="USER_ID" Type="Decimal" />
+            <Field Name="CAMPAIGN_TARGET_DETAILS_ACTION_ID" Type="Decimal" />
+            <Field Name="CAMPAIGN_TARGET_DETAILS_ACTION_TARGET_ID" Type="Decimal" />
+            <Field Name="RESERVATION_DATE" Type="DateTime" />
+            <Field Name="JUNKET_OPERATOR_ID" Type="Decimal" />
+            <Field Name="JUNKET_ID" Type="String" />
+            <Field Name="ARRIVAL_FLIGHT_DATE" Type="DateTime" />
+            <Field Name="ARRIVAL_AGENCY_ID" Type="Decimal" />
+            <Field Name="ARRIVAL_AIRLINE_ID" Type="Decimal" />
+            <Field Name="ARRIVAL_FLIGHT" Type="String" />
+            <Field Name="ARRIVAL_FLIGHT_FROM" Type="String" />
+            <Field Name="ARRIVAL_FLIGHT_TO" Type="String" />
+            <Field Name="ARRIVAL_DEPARTS" Type="DateTime" />
+            <Field Name="ARRIVAL_ARRIVES" Type="DateTime" />
+            <Field Name="DEPARTURE_FLIGHT_DATE" Type="DateTime" />
+            <Field Name="DEPARTURE_AGENCY_ID" Type="Decimal" />
+            <Field Name="DEPARTURE_AIRLINE_ID" Type="Decimal" />
+            <Field Name="DEPARTURE_FLIGHT" Type="String" />
+            <Field Name="DEPARTURE_FLIGHT_FROM" Type="String" />
+            <Field Name="DEPARTURE_FLIGHT_TO" Type="String" />
+            <Field Name="DEPARTURE_DEPARTS" Type="DateTime" />
+            <Field Name="DEPARTURE_ARRIVES" Type="DateTime" />
+            <Field Name="FLIGHT_CATEGORY_ID" Type="Decimal" />
+            <Field Name="FLIGHT_FEE" Type="Decimal" />
+            <Field Name="TRANSPORT_SERVICE_ID" Type="Decimal" />
+            <Field Name="ARRIVAL_DATE" Type="DateTime" />
+            <Field Name="DEPARTURE_DATE" Type="DateTime" />
+            <Field Name="NUMBER_ADULTS" Type="Decimal" />
+            <Field Name="NUMBER_KIDS" Type="Decimal" />
+            <Field Name="EARLY_CHECK_OUT" Type="DateTime" />
+            <Field Name="EXTENSION" Type="DateTime" />
+            <Field Name="PREFERENCES1_ID" Type="Decimal" />
+            <Field Name="PREFERENCES2_ID" Type="Decimal" />
+            <Field Name="PREFERENCES3_ID" Type="Decimal" />
+            <Field Name="ROOM_SERVICE_ID" Type="Decimal" />
+            <Field Name="ACTUAL_ROOM_NUMBER" Type="String" />
+            <Field Name="CAMPAIGN_TARGET_DETAILS_VENUE_ID" Type="Decimal" />
+            <Field Name="HOTEL_ID" Type="Decimal" />
+            <Field Name="HOTEL_CATEGORY_ID" Type="Decimal" />
+            <Field Name="ROOM_TYPE_ID" Type="Decimal" />
+            <Field Name="RESERVATION_FROM" Type="DateTime" />
+            <Field Name="RESERVATION_TO" Type="DateTime" />
+            <Field Name="ALLOCATED_ROOM_COUNT" Type="Decimal" />
+            <Field Name="EXPENSE_GROUP" Type="Byte" />
+            <Field Name="EXPENSE_TYPE" Type="Int16" />
+            <Field Name="COST" Type="Decimal" />
+            <Field Name="CAMPAIGN_TARGET_DETAILS_NOTES" Type="String" />
+            <Field Name="BEDS_ID" Type="Int64" />
+            <Field Name="FEEDING_ID" Type="Int64" />
+            <Field Name="ARRIVAL_TICKET_NUMBER" Type="String" />
+            <Field Name="ARRIVAL_RESERVATION_NO" Type="String" />
+            <Field Name="DEPARTURE_TICKET_NUMBER" Type="String" />
+            <Field Name="DEPARTURE_RESERVATION_NO" Type="String" />
+            <Field Name="G1" Type="String" />
+            <Field Name="G2" Type="String" />
+            <Field Name="G3" Type="String" />
+            <Field Name="G4" Type="String" />
+            <Field Name="ROOM_AVAILABILITY_PACK_ID" Type="Decimal" />
+            <Field Name="ROOM_AVAILABILITY_ID" Type="Decimal" />
+            <Field Name="RECOMMENDED_BY" Type="Decimal" />
+            <Field Name="ARRIVAL_FLIGHT_FEE" Type="Decimal" />
+            <Field Name="DEPARTURE_FLIGHT_FEE" Type="Decimal" />
+            <Field Name="ARRIVAL_TICKET_CLASS" Type="String" />
+            <Field Name="DEPARTURE_TICKET_CLASS" Type="String" />
+            <Field Name="EXCHANGED_VALUE" Type="Decimal" />
+            <Field Name="CALCULATED_CHECK_OUT" Type="DateTime" />
+            <Field Name="JUNKET_GROUP" Type="Decimal" />
+            <Field Name="IS_TRANSFER" Type="Boolean" />
+            <Field Name="DISCOUNT_PAST_RSV" Type="Decimal" />
+            <Field Name="DISCOUNT_CASH_RSV" Type="Decimal" />
+            <Field Name="VISA_NUMBER" Type="String" />
+            <Field Name="VISA_NUMBER_G1" Type="String" />
+            <Field Name="VISA_NUMBER_G2" Type="String" />
+            <Field Name="VISA_NUMBER_G3" Type="String" />
+            <Field Name="VISA_NUMBER_G4" Type="String" />
+            <Field Name="ONE_WAY_FLIGHT" Type="Boolean" />
+            <Field Name="CB1" Type="Boolean" />
+            <Field Name="CB2" Type="Boolean" />
+            <Field Name="PRICE" Type="Decimal" />
+            <Field Name="CAMPAIGN_TARGET_DETAILS_MODIFIED_AT" Type="DateTime" />
+            <Field Name="FLIGHT_FEE_2" Type="Decimal" />
+            <Field Name="ARRIVAL_FLIGHT_FEE_2" Type="Decimal" />
+            <Field Name="DEPARTURE_FLIGHT_FEE_2" Type="Decimal" />
+            <Field Name="ARRIVAL_FF2_INVOICE_DATE" Type="DateTime" />
+            <Field Name="DEPARTURE_FF2_INVOICE_DATE" Type="DateTime" />
+            <Field Name="DAILY_EXPENSE" Type="Decimal" />
+            <Field Name="EXPENSE_GROUP_CODE" Type="Byte" />
+            <Field Name="EXPENSE_TYPE_CODE" Type="Int16" />
+            <Field Name="AIRLINE_ID" Type="Decimal" />
+            <Field Name="DESCR" Type="String" />
+            <Field Name="SHORT_DESCR" Type="String" />
+            <Field Name="DEPARTURE_AIRLINE_ID_1" Type="Decimal" />
+            <Field Name="DEPARTURE_AIRLINE_DESCR" Type="String" />
+            <Field Name="DEPARTURE_AIRLINE_SHORT_DESCR" Type="String" />
+          </View>
+          <View Name="DYNAMIC_CUSTOMER_DETAILS">
+            <Field Name="SECURE" Type="Decimal" />
+            <Field Name="ENTRY_VALUE" Type="Decimal" />
+            <Field Name="ENTRY_LABEL" Type="String" />
+            <Field Name="DISPLAY_FORMAT" Type="String" />
+            <Field Name="WIDTH" Type="Decimal" />
+          </View>
+        </DataSet>
+      </ResultSchema>
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <Grid ComponentName="gridDashboardItem1" Name="Grid 1" DataSource="dashboardSqlDataSource1" DataMember="ACTION">
+      <InteractivityOptions MasterFilterMode="Single" />
+      <DataItems>
+        <Dimension DataMember="TITLE" DefaultId="DataItem0" />
+        <Measure DataMember="ID" DefaultId="DataItem1" />
+        <Dimension DataMember="DATE_START" DefaultId="DataItem2" />
+        <Dimension DataMember="DATE_END" DefaultId="DataItem3" />
+      </DataItems>
+      <GridColumns>
+        <GridMeasureColumn>
+          <Measure DefaultId="DataItem1" />
+        </GridMeasureColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem0" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem2" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem3" />
+        </GridDimensionColumn>
+      </GridColumns>
+      <GridOptions />
+      <ColumnFilterOptions />
+    </Grid>
+    <Grid ComponentName="gridDashboardItem2" Name="Grid 2" DataSource="dashboardSqlDataSource1" DataMember="ACTION">
+      <DataItems>
+        <Dimension DataMember="ACTION_TARGET_ID" DefaultId="DataItem0" />
+        <Measure DataMember="USER_ID" DefaultId="DataItem1" />
+        <Dimension DataMember="STATE" DefaultId="DataItem2" />
+      </DataItems>
+      <GridColumns>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem0" />
+        </GridDimensionColumn>
+        <GridMeasureColumn>
+          <Measure DefaultId="DataItem1" />
+        </GridMeasureColumn>
+        <GridDimensionColumn>
+          <Dimension DefaultId="DataItem2" />
+        </GridDimensionColumn>
+      </GridColumns>
+      <GridOptions />
+      <ColumnFilterOptions />
+    </Grid>
+    <Card ComponentName="cardDashboardItem1" Name="Cards 1" DataSource="dashboardSqlDataSource1" DataMember="DYNAMIC_CUSTOMER_DETAILS">
+      <DataItems>
+        <Measure DataMember="ENTRY_VALUE" DefaultId="DataItem0" />
+        <Dimension DataMember="ENTRY_LABEL" DefaultId="DataItem1" />
+      </DataItems>
+      <SeriesDimensions>
+        <SeriesDimension DefaultId="DataItem1" />
+      </SeriesDimensions>
+      <Card>
+        <ActualValue DefaultId="DataItem0" />
+        <AbsoluteVariationNumericFormat />
+        <PercentVariationNumericFormat />
+        <PercentOfTargetNumericFormat />
+        <LayoutTemplate Type="Stretched">
+          <TopValue Visible="true" ValueType="ActualValue" DimensionIndex="0" />
+          <MainValue Visible="true" ValueType="Title" DimensionIndex="0" />
+          <SubValue Visible="true" ValueType="Subtitle" DimensionIndex="0" />
+          <BottomValue1 Visible="true" ValueType="PercentVariation" DimensionIndex="0" />
+          <BottomValue2 Visible="true" ValueType="AbsoluteVariation" DimensionIndex="0" />
+          <DeltaIndicator Visible="true" />
+          <Sparkline Visible="true" />
+        </LayoutTemplate>
+      </Card>
+    </Card>
+  </Items>
+  <LayoutTree>
+    <LayoutGroup Orientation="Vertical" Weight="100">
+      <LayoutGroup Weight="40.348101265822784">
+        <LayoutItem DashboardItem="gridDashboardItem1" Weight="50" />
+        <LayoutItem DashboardItem="gridDashboardItem2" Weight="50" />
+      </LayoutGroup>
+      <LayoutItem DashboardItem="cardDashboardItem1" Weight="59.651898734177216" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>

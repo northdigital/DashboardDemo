@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dashboard CurrencyCulture="el-GR">
-  <Title Text="Dashboard" />
+  <Title Text="CRM Demo Dashboard 2" />
   <DataSources>
     <SqlDataSource Name="CRM Data Source" ComponentName="dashboardSqlDataSource1">
       <Connection Name="connection" ProviderKey="Oracle">

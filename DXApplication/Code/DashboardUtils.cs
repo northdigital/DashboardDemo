@@ -5,7 +5,7 @@ using DevExpress.DataAccess.ConnectionParameters;
 namespace DXApplication
 {
   public static class DashboardUtils {
-        public static DashboardConfigurator CreateDashboardConfigurator(IConfiguration configuration, IFileProvider fileProvider) {
+        public static DashboardConfigurator CreateDashboardConfigurator(IFileProvider fileProvider) {
             DashboardConfigurator.PassCredentials = true;
 
             DashboardConfigurator configurator = new();

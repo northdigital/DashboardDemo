@@ -10,7 +10,11 @@
 
     <script type="text/javascript">
     function onBeforeRender(dashboardControl) {
-        dashboardControl.registerExtension(new DevExpress.Dashboard.DashboardPanelExtension(dashboardControl, { dashboardThumbnail: "./DashboardThumbnail/{0}.png" }));
+        dashboardControl.registerExtension(
+          new DevExpress.Dashboard.DashboardPanelExtension(dashboardControl, {
+            dashboardThumbnail: "./DashboardThumbnail/{0}.png" 
+          }));
+      //dashboardControl.loadDashboard("ds2");
     }
     </script>
 </head>
