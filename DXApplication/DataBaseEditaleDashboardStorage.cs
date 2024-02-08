@@ -1,6 +1,4 @@
 using DevExpress.DashboardWeb;
-using System.Data;
-using System.Data.SqlClient;
 using System.Xml.Linq;
 
 namespace DXApplication
