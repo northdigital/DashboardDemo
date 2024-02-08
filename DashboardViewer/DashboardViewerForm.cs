@@ -1,5 +1,4 @@
 ﻿using DevExpress.DashboardCommon;
-using DevExpress.DashboardWin;
 using DevExpress.DataAccess.ConnectionParameters;
 using System.Windows.Forms;
 

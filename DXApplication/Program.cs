@@ -20,7 +20,6 @@ builder.Services.AddScoped<DashboardConfigurator>((IServiceProvider serviceProvi
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
