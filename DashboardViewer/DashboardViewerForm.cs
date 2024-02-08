@@ -37,7 +37,6 @@ namespace DashboardViewer
 
     private void BtnReloadData_Click(object sender, System.EventArgs e)
     {
-      dashboardViewer.ExportToExcel("aaa.xlsx");
       if (dashboardViewer.Dashboard != null)
         dashboardViewer.ReloadData();
     }
