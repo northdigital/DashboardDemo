@@ -6,6 +6,7 @@ using DevExpress.XtraBars;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,30 +15,20 @@ namespace DashboardDesigner
 {
   public partial class DashboardDesignerForm : Form
   {
-    private void AddObjDataSource()
-    {
-      DashboardDesigner.DataSourceOptions.ObjectDataSourceLoadingBehavior = DocumentLoadingBehavior.LoadAsIs;
-
-      DashboardObjectDataSource dataSource1 = new DashboardObjectDataSource("Obj Data Source1");
-      DashboardDesigner.DataLoading += (s, ev) =>
-      {
-        if (ev.DataSourceName == "Obj Data Source1")
-          ev.Data = Data.Get1();
-      };
-      DashboardDesigner.Dashboard.DataSources.Add(dataSource1);
-
-      DashboardObjectDataSource dataSource2 = new DashboardObjectDataSource("Obj Data Source2");
-      DashboardDesigner.DataLoading += (s, ev) =>
-      {
-        if (ev.DataSourceName == "Obj Data Source2")
-          ev.Data = Data.Get2();
-      };
-      DashboardDesigner.Dashboard.DataSources.Add(dataSource2);
-    }
+    private bool isDashboadModified = false;
 
     private void AddCRMDataSource()
     {
-      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source");
+      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source")
+      {
+        ConnectionParameters = new OracleConnectionParameters
+        {
+          ProviderType = OracleProviderType.ODPManaged,
+          ServerName = "godfather/casinodev",
+          UserName = "casinocrm",
+          Password = "sporades"
+        }
+      };
       DashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
     }
 
@@ -78,22 +69,6 @@ namespace DashboardDesigner
       }
     }
 
-    private void BbiOpenDashboard_ItemClick(object sender, ItemClickEventArgs e)
-    {
-      if (openDashboardDialog.ShowDialog() == DialogResult.OK)
-      {
-        DashboardDesigner.Dashboard.LoadFromXml(openDashboardDialog.FileName);
-      }     
-    }
-
-    private void BbiSaveDashboard_ItemClick(object sender, ItemClickEventArgs e)
-    {
-      if (saveDashboardDialog.ShowDialog() == DialogResult.OK)
-      {
-        DashboardDesigner.Dashboard.SaveToXml(saveDashboardDialog.FileName);
-      }      
-    }
-
     private void DashboardDesigner_CustomizeDashboardTitle(object sender, CustomizeDashboardTitleEventArgs e)
     {
       DashboardToolbarItem titleButton = new DashboardToolbarItem("Load Data",
@@ -105,6 +80,76 @@ namespace DashboardDesigner
         Caption = "Reload Data"
       };
       e.Items.Add(titleButton);
-    }    
+    }
+
+    private void DashboardDesigner_DashboardClosing(object sender, DashboardClosingEventArgs e)
+    {
+      e.IsDashboardModified = isDashboadModified;
+    }
+
+    private void DashboardDesigner_DashboardChanged(object sender, EventArgs e)
+    {
+      DashboardDesigner.Dashboard.OptionsChanged += (_sender, _e) =>
+      {
+        isDashboadModified = undoBarItem1.Enabled || redoBarItem1.Enabled;
+      };
+    }
+
+    private void BbiNewDashboard_ItemClick(object sender, ItemClickEventArgs e)
+    {
+      if(isDashboadModified)
+      {
+        var result = MessageBox.Show("Dashboard is modified. Save changes?", "Confirmation", MessageBoxButtons.YesNoCancel);
+
+        if (result == DialogResult.Cancel) 
+          return;
+
+        if (result == DialogResult.Yes)
+        {
+          if (saveDashboardDialog.ShowDialog() == DialogResult.OK)
+          {
+            DashboardDesigner.Dashboard.SaveToXml(saveDashboardDialog.FileName);
+            isDashboadModified = false;
+          }
+          else
+          {
+            return;
+          }
+        }
+      }
+
+      Dashboard dashboard = new Dashboard();
+
+      DashboardSqlDataSource sqlDataSource = new DashboardSqlDataSource("CRM Data Source")
+      {
+        ConnectionParameters = new OracleConnectionParameters
+        {
+          ProviderType = OracleProviderType.ODPManaged,
+          ServerName = "godfather/casinodev",
+          UserName = "casinocrm",
+          Password = "sporades"
+        }
+      };
+      dashboard.DataSources.Add(sqlDataSource);
+
+      DashboardDesigner.Dashboard = dashboard;      
+    }
+
+    private void BbiOpenDashboard_ItemClick(object sender, ItemClickEventArgs e)
+    {
+      if (openDashboardDialog.ShowDialog() == DialogResult.OK)
+      {
+        DashboardDesigner.Dashboard.LoadFromXml(openDashboardDialog.FileName);
+      }
+    }
+
+    private void BbiSaveDashboard_ItemClick(object sender, ItemClickEventArgs e)
+    {
+      if (saveDashboardDialog.ShowDialog() == DialogResult.OK)
+      {
+        DashboardDesigner.Dashboard.SaveToXml(saveDashboardDialog.FileName);
+        isDashboadModified = false;
+      }
+    }
   }
 }

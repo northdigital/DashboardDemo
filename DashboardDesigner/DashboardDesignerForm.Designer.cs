@@ -940,6 +940,10 @@ namespace DashboardDesigner
       this.textBoxEditorBarController = new DevExpress.DashboardWin.Bars.TextBoxEditorBarController(this.components);
       this.saveDashboardDialog = new System.Windows.Forms.SaveFileDialog();
       this.openDashboardDialog = new System.Windows.Forms.OpenFileDialog();
+      this.splitContainerControl = new DevExpress.XtraEditors.SplitContainerControl();
+      this.treeList = new DevExpress.XtraTreeList.TreeList();
+      this.topPanel = new DevExpress.XtraEditors.PanelControl();
+      this.BbiNewDashboard = new DevExpress.XtraBars.BarButtonItem();
       ((System.ComponentModel.ISupportInitialize)(this.DashboardDesigner)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.dashboardBarAndDockingController)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
@@ -955,6 +959,14 @@ namespace DashboardDesigner
       ((System.ComponentModel.ISupportInitialize)(this.dashboardPopupMenu)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.dashboardBarController)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.textBoxEditorBarController)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl.Panel1)).BeginInit();
+      this.splitContainerControl.Panel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl.Panel2)).BeginInit();
+      this.splitContainerControl.Panel2.SuspendLayout();
+      this.splitContainerControl.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.treeList)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.topPanel)).BeginInit();
       this.SuspendLayout();
       // 
       // DashboardDesigner
@@ -966,10 +978,12 @@ namespace DashboardDesigner
       this.DashboardDesigner.MenuManager = this.ribbonControl;
       this.DashboardDesigner.Name = "DashboardDesigner";
       this.DashboardDesigner.PopupMenu = this.dashboardPopupMenu;
-      this.DashboardDesigner.Size = new System.Drawing.Size(1294, 466);
+      this.DashboardDesigner.Size = new System.Drawing.Size(1051, 466);
       this.DashboardDesigner.TabIndex = 0;
+      this.DashboardDesigner.DashboardChanged += new System.EventHandler(this.DashboardDesigner_DashboardChanged);
       this.DashboardDesigner.ConfigureDataConnection += new DevExpress.DashboardCommon.DashboardConfigureDataConnectionEventHandler(this.DashboardDesigner_ConfigureDataConnection);
       this.DashboardDesigner.CustomizeDashboardTitle += new DevExpress.DashboardWin.CustomizeDashboardTitleEventHandler(this.DashboardDesigner_CustomizeDashboardTitle);
+      this.DashboardDesigner.DashboardClosing += new DevExpress.DashboardWin.DashboardClosingEventHandler(this.DashboardDesigner_DashboardClosing);
       // 
       // ribbonControl
       // 
@@ -1474,9 +1488,10 @@ namespace DashboardDesigner
             this.floatingObjectSendToBackItem1,
             this.floatingObjectSendBehindTextItem1,
             this.bbiSaveDashboard,
-            this.bbiOpenDashboard});
+            this.bbiOpenDashboard,
+            this.BbiNewDashboard});
       this.ribbonControl.Location = new System.Drawing.Point(0, 0);
-      this.ribbonControl.MaxItemId = 500;
+      this.ribbonControl.MaxItemId = 501;
       this.ribbonControl.Name = "ribbonControl";
       this.ribbonControl.OptionsPageCategories.AutoCorrectForeColor = DevExpress.Utils.DefaultBoolean.True;
       this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
@@ -1517,7 +1532,7 @@ namespace DashboardDesigner
             this.repositoryItemBorderLineStyle1,
             this.repositoryItemBorderLineWeight1,
             this.repositoryItemFloatingObjectOutlineWeight1});
-      this.ribbonControl.Size = new System.Drawing.Size(1294, 150);
+      this.ribbonControl.Size = new System.Drawing.Size(1051, 150);
       this.ribbonControl.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Above;
       // 
       // dashboardBackstageViewControl1
@@ -1530,7 +1545,7 @@ namespace DashboardDesigner
       this.dashboardBackstageViewControl1.Items.Add(this.dashboardBackstageSaveButton1);
       this.dashboardBackstageViewControl1.Items.Add(this.dashboardBackstageSaveAsButton1);
       this.dashboardBackstageViewControl1.Items.Add(this.dashboardBackstageRecentTab1);
-      this.dashboardBackstageViewControl1.Location = new System.Drawing.Point(0, 0);
+      this.dashboardBackstageViewControl1.Location = new System.Drawing.Point(723, 173);
       this.dashboardBackstageViewControl1.Name = "dashboardBackstageViewControl1";
       this.dashboardBackstageViewControl1.OwnerControl = this.ribbonControl;
       this.dashboardBackstageViewControl1.SelectedTab = this.dashboardBackstageRecentTab1;
@@ -1542,9 +1557,9 @@ namespace DashboardDesigner
       // backstageViewClientControl1
       // 
       this.backstageViewClientControl1.Controls.Add(this.recentDashboardsControl1);
-      this.backstageViewClientControl1.Location = new System.Drawing.Point(132, 62);
+      this.backstageViewClientControl1.Location = new System.Drawing.Point(132, 63);
       this.backstageViewClientControl1.Name = "backstageViewClientControl1";
-      this.backstageViewClientControl1.Size = new System.Drawing.Size(91, 88);
+      this.backstageViewClientControl1.Size = new System.Drawing.Size(90, 86);
       this.backstageViewClientControl1.TabIndex = 1;
       // 
       // recentDashboardsControl1
@@ -1555,7 +1570,7 @@ namespace DashboardDesigner
       this.recentDashboardsControl1.Location = new System.Drawing.Point(0, 0);
       this.recentDashboardsControl1.Name = "recentDashboardsControl1";
       this.recentDashboardsControl1.ServiceProvider = this.DashboardDesigner;
-      this.recentDashboardsControl1.Size = new System.Drawing.Size(91, 88);
+      this.recentDashboardsControl1.Size = new System.Drawing.Size(90, 86);
       this.recentDashboardsControl1.TabIndex = 0;
       // 
       // dashboardBackstageRecentTab1
@@ -5063,13 +5078,13 @@ namespace DashboardDesigner
       // 
       this.bbiSaveDashboard.Caption = "Save Dashboard";
       this.bbiSaveDashboard.Id = 498;
-      this.bbiSaveDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("BbiSaveDashboard.ImageOptions.SvgImage")));
+      this.bbiSaveDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("bbiSaveDashboard.ImageOptions.SvgImage")));
       this.bbiSaveDashboard.Name = "bbiSaveDashboard";
       this.bbiSaveDashboard.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BbiSaveDashboard_ItemClick);
       // 
       // bbiOpenDashboard
       // 
-      this.bbiOpenDashboard.Caption = "Load Dashboard";
+      this.bbiOpenDashboard.Caption = "Open Dashboard";
       this.bbiOpenDashboard.Id = 499;
       this.bbiOpenDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("bbiOpenDashboard.ImageOptions.SvgImage")));
       this.bbiOpenDashboard.Name = "bbiOpenDashboard";
@@ -7070,10 +7085,11 @@ namespace DashboardDesigner
       // 
       this.fileRibbonPageGroup1.AllowTextClipping = false;
       this.fileRibbonPageGroup1.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
+      this.fileRibbonPageGroup1.ItemLinks.Add(this.BbiNewDashboard);
       this.fileRibbonPageGroup1.ItemLinks.Add(this.bbiOpenDashboard);
+      this.fileRibbonPageGroup1.ItemLinks.Add(this.bbiSaveDashboard);
       this.fileRibbonPageGroup1.ItemLinks.Add(this.fileNewBarItem1);
       this.fileRibbonPageGroup1.ItemLinks.Add(this.fileOpenBarItem1);
-      this.fileRibbonPageGroup1.ItemLinks.Add(this.bbiSaveDashboard);
       this.fileRibbonPageGroup1.ItemLinks.Add(this.fileSaveBarItem1);
       this.fileRibbonPageGroup1.ItemLinks.Add(this.fileSaveAsBarItem1);
       this.fileRibbonPageGroup1.Name = "fileRibbonPageGroup1";
@@ -7809,14 +7825,65 @@ namespace DashboardDesigner
       this.openDashboardDialog.DefaultExt = "xml";
       this.openDashboardDialog.Filter = "Dashboard|*.xml";
       // 
+      // splitContainerControl
+      // 
+      this.splitContainerControl.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1;
+      this.splitContainerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.splitContainerControl.IsSplitterFixed = true;
+      this.splitContainerControl.Location = new System.Drawing.Point(0, 0);
+      this.splitContainerControl.Name = "splitContainerControl";
+      // 
+      // splitContainerControl.Panel1
+      // 
+      this.splitContainerControl.Panel1.Controls.Add(this.treeList);
+      this.splitContainerControl.Panel1.Controls.Add(this.topPanel);
+      this.splitContainerControl.Panel1.Text = "Panel1";
+      // 
+      // splitContainerControl.Panel2
+      // 
+      this.splitContainerControl.Panel2.Controls.Add(this.dashboardBackstageViewControl1);
+      this.splitContainerControl.Panel2.Controls.Add(this.DashboardDesigner);
+      this.splitContainerControl.Panel2.Controls.Add(this.ribbonControl);
+      this.splitContainerControl.Panel2.Text = "Panel2";
+      this.splitContainerControl.ShowSplitGlyph = DevExpress.Utils.DefaultBoolean.True;
+      this.splitContainerControl.Size = new System.Drawing.Size(1294, 616);
+      this.splitContainerControl.SplitterPosition = 233;
+      this.splitContainerControl.TabIndex = 3;
+      // 
+      // treeList
+      // 
+      this.treeList.CustomizationFormBounds = new System.Drawing.Rectangle(425, 486, 264, 272);
+      this.treeList.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeList.Location = new System.Drawing.Point(0, 44);
+      this.treeList.MenuManager = this.ribbonControl;
+      this.treeList.Name = "treeList";
+      this.treeList.OptionsView.ShowColumns = false;
+      this.treeList.Size = new System.Drawing.Size(233, 572);
+      this.treeList.TabIndex = 1;
+      // 
+      // topPanel
+      // 
+      this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+      this.topPanel.Location = new System.Drawing.Point(0, 0);
+      this.topPanel.Name = "topPanel";
+      this.topPanel.Size = new System.Drawing.Size(233, 44);
+      this.topPanel.TabIndex = 0;
+      // 
+      // BbiNewDashboard
+      // 
+      this.BbiNewDashboard.Caption = "New Dashboard";
+      this.BbiNewDashboard.Id = 500;
+      this.BbiNewDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("bbiNewDashboard.ImageOptions.SvgImage")));
+      this.BbiNewDashboard.Name = "BbiNewDashboard";
+      this.BbiNewDashboard.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BbiNewDashboard_ItemClick);
+      // 
       // DashboardDesignerForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1294, 616);
-      this.Controls.Add(this.DashboardDesigner);
-      this.Controls.Add(this.ribbonControl);
-      this.Controls.Add(this.dashboardBackstageViewControl1);
+      this.Controls.Add(this.splitContainerControl);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "DashboardDesignerForm";
       this.Text = "Dashboard Designer";
       ((System.ComponentModel.ISupportInitialize)(this.DashboardDesigner)).EndInit();
@@ -7834,8 +7901,16 @@ namespace DashboardDesigner
       ((System.ComponentModel.ISupportInitialize)(this.dashboardPopupMenu)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.dashboardBarController)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.textBoxEditorBarController)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl.Panel1)).EndInit();
+      this.splitContainerControl.Panel1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl.Panel2)).EndInit();
+      this.splitContainerControl.Panel2.ResumeLayout(false);
+      this.splitContainerControl.Panel2.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl)).EndInit();
+      this.splitContainerControl.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.treeList)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.topPanel)).EndInit();
       this.ResumeLayout(false);
-      this.PerformLayout();
 
     }
 
@@ -8603,6 +8678,10 @@ namespace DashboardDesigner
     private System.Windows.Forms.SaveFileDialog saveDashboardDialog;
     private DevExpress.XtraBars.BarButtonItem bbiOpenDashboard;
     private System.Windows.Forms.OpenFileDialog openDashboardDialog;
+    private DevExpress.XtraEditors.SplitContainerControl splitContainerControl;
+    private DevExpress.XtraTreeList.TreeList treeList;
+    private DevExpress.XtraEditors.PanelControl topPanel;
+    private DevExpress.XtraBars.BarButtonItem BbiNewDashboard;
   }
 }
 
