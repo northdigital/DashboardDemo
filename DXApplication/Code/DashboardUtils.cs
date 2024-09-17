@@ -30,8 +30,8 @@ namespace DXApplication
                 {
                   ProviderType = OracleProviderType.ODPManaged,
                   ServerName = "godfather/casinodev",
-                  UserName = "casinocrm",
-                  Password = "sporades",
+                  UserName = "xxx",
+                  Password = "yyy",
                 };
 
                 e.ConnectionParameters = oracleConnectionParameters;

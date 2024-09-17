@@ -19,8 +19,8 @@ namespace DashboardViewer
         {
           ProviderType = OracleProviderType.ODPManaged,
           ServerName = "godfather/casinodev",
-          UserName = "casinocrm",
-          Password = "sporades"
+          UserName = "xxx",
+          Password = "yyy"
         };
       }
     }

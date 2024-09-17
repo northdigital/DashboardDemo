@@ -25,8 +25,8 @@ namespace DashboardDesigner
         {
           ProviderType = OracleProviderType.ODPManaged,
           ServerName = "godfather/casinodev",
-          UserName = "casinocrm",
-          Password = "sporades"
+          UserName = "xxx",
+          Password = "yyy"
         }
       };
       DashboardDesigner.Dashboard.DataSources.Add(sqlDataSource);
@@ -63,8 +63,8 @@ namespace DashboardDesigner
         {
           ProviderType = OracleProviderType.ODPManaged,
           ServerName = "godfather/casinodev",
-          UserName = "casinocrm",
-          Password = "sporades"
+          UserName = "xxx",
+          Password = "yyy"
         };
       }
     }
@@ -126,8 +126,8 @@ namespace DashboardDesigner
         {
           ProviderType = OracleProviderType.ODPManaged,
           ServerName = "godfather/casinodev",
-          UserName = "casinocrm",
-          Password = "sporades"
+          UserName = "xxx",
+          Password = "yyy"
         }
       };
       dashboard.DataSources.Add(sqlDataSource);
