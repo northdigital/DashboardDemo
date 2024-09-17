@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="23.2.4" />
+    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="23.2.6" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.130" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
